@@ -25,6 +25,10 @@
         "required": ["repo", "access"],
         "additionalProperties": false
       }
+    },
+    "autoApprove": {
+      "description": "Opt in to Concierge auto-approve. When true and the repo has check-in enabled, Concierge submits an informational APPROVE review on eligible PRs.",
+      "type": "boolean"
     }
   },
   "additionalProperties": {},
