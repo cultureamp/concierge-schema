@@ -29,6 +29,28 @@
     "autoApprove": {
       "description": "Opt in to Concierge auto-approve. When true and the repo has the review gate enabled, Concierge submits an informational APPROVE review on eligible PRs.",
       "type": "boolean"
+    },
+    "skills": {
+      "description": "Externally-sourced Claude skills staged on every workflow run of this repo. Each entry is a cultureamp repo (owner/repo); omit `path` for whole-repo discovery (every SKILL.md dir), or set `path` to a single skill's SKILL.md directory. `ref` is reserved — v1 always uses the default branch and records its resolved SHA.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "repo": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_.-]+\\/[a-zA-Z0-9_.-]+$",
+            "description": "GitHub repository in org/repo format"
+          },
+          "path": {
+            "type": "string"
+          },
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": ["repo"],
+        "additionalProperties": false
+      }
     }
   },
   "additionalProperties": {},
