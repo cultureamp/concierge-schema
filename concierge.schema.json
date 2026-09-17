@@ -30,6 +30,11 @@
       "description": "Opt in to Concierge auto-approve. When true and the repo has the review gate enabled, Concierge submits an informational APPROVE review on eligible PRs.",
       "type": "boolean"
     },
+    "autoApproveRiskCeiling": {
+      "description": "Maximum risk level that Concierge may auto-approve. A repo may lower its ceiling below the global default (high) but not raise it. Omit to use the global default.",
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
     "skills": {
       "description": "Externally-sourced Claude skills staged on every workflow run of this repo. Each entry is a cultureamp repo (owner/repo); omit `path` for whole-repo discovery (every SKILL.md dir), or set `path` to a single skill's SKILL.md directory. `ref` is reserved — v1 always uses the default branch and records its resolved SHA.",
       "type": "array",
