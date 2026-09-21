@@ -26,14 +26,29 @@
         "additionalProperties": false
       }
     },
-    "autoApprove": {
-      "description": "Opt in to Concierge auto-approve. When true and the repo has the review gate enabled, Concierge submits an informational APPROVE review on eligible PRs.",
-      "type": "boolean"
-    },
-    "autoApproveRiskCeiling": {
-      "description": "Maximum risk level that Concierge may auto-approve. A repo may lower its ceiling below the global default (high) but not raise it. Omit to use the global default.",
-      "type": "string",
-      "enum": ["low", "medium", "high"]
+    "reviewGate": {
+      "description": "Per-repo tuning of the review gate.",
+      "type": "object",
+      "properties": {
+        "autoApprove": {
+          "description": "Opt in to Concierge auto-approve. When true and the repo has the review gate enabled, Concierge submits an informational APPROVE review on eligible PRs. Overridden by teams.json's reviewGateAutoApprove when a team or repo sets one.",
+          "type": "boolean"
+        },
+        "autoApproveRiskCeiling": {
+          "description": "Maximum risk level that Concierge may auto-approve. A repo may lower its ceiling below the global default (high) but not raise it. Omit to use the global default. Overridden by teams.json's reviewGateAutoApproveRiskCeiling when a team or repo sets one.",
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "excludeCommitAuthors": {
+          "description": "Whether an approver who authored a commit on the PR head is excluded from counting as an independent approver. Default true. Set false to disable this exclusion for the repo. Overridden by teams.json's reviewGateExcludeCommitAuthors when a team or repo sets one.",
+          "type": "boolean"
+        },
+        "requireIndependentReviewer": {
+          "description": "Whether a Concierge-requested PR requires approval from someone other than the requestor (separation of duties). Default true. Set false to let the requestor's own approval satisfy the gate. Overridden by teams.json's reviewGateRequireIndependentReviewer when a team or repo sets one.",
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
     },
     "skills": {
       "description": "Externally-sourced Claude skills staged on every workflow run of this repo. Each entry is a cultureamp repo (owner/repo); omit `path` for whole-repo discovery (every SKILL.md dir), or set `path` to a single skill's SKILL.md directory. `ref` is reserved — v1 always uses the default branch and records its resolved SHA.",
