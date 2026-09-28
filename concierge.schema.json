@@ -46,6 +46,49 @@
         "requireIndependentReviewer": {
           "description": "Whether a Concierge-requested PR requires approval from someone other than the requestor (separation of duties). Default true. Set false to let the requestor's own approval satisfy the gate. Overridden by teams.json's reviewGateRequireIndependentReviewer when a team or repo sets one.",
           "type": "boolean"
+        },
+        "pathRisk": {
+          "description": "Risk level per path, as glob patterns (`**` crosses directories, `*` stays within one segment). Keys: critical, high, medium, low. When several patterns match a file, the most specific pattern wins; on a specificity tie, the highest risk wins. critical/high matches block auto-approve; low matches exempt the file from the production-files veto; medium and unmatched files keep default behaviour. Not overridable from teams.json.",
+          "type": "object",
+          "properties": {
+            "critical": {
+              "description": "Glob patterns whose matching files are critical risk",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              }
+            },
+            "high": {
+              "description": "Glob patterns whose matching files are high risk",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              }
+            },
+            "medium": {
+              "description": "Glob patterns whose matching files are medium risk",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              }
+            },
+            "low": {
+              "description": "Glob patterns whose matching files are low risk",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              }
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
