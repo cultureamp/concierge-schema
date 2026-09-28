@@ -26,6 +26,24 @@
         "additionalProperties": false
       }
     },
+    "prReview": {
+      "description": "Per-repo control over when the automatic PR review runs.",
+      "type": "object",
+      "properties": {
+        "defaultBranchOnly": {
+          "description": "When true, the automatic PR review only runs on pull requests whose base branch is the repo's default branch (plus any `additionalBaseBranches`). PRs into other branches (stacked or feature-branch PRs) are skipped; the PR Review checkbox still runs a review on demand. Default false — every base branch is reviewed.",
+          "type": "boolean"
+        },
+        "additionalBaseBranches": {
+          "description": "Extra base branches still auto-reviewed when `defaultBranchOnly` is true, e.g. `release/*`. `*` matches any run of characters, including `/`. Ignored when `defaultBranchOnly` is false.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
     "reviewGate": {
       "description": "Per-repo tuning of the review gate.",
       "type": "object",
