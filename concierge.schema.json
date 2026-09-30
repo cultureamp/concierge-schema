@@ -26,6 +26,42 @@
         "additionalProperties": false
       }
     },
+    "archReview": {
+      "description": "Per-repo tuning of the scheduled architecture review.",
+      "type": "object",
+      "properties": {
+        "largeFiles": {
+          "description": "Opt in to the arch-review large-file check. Presence of the block enables it. Scope is the files the arch review already covers (changed in the churn window, after its lockfile/snapshot/generated filtering); binary files are skipped. Findings use dimension `complexity`, smell `large-file`, and share the complexity quota with high-cyclomatic findings.",
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "description": "Whether the large-file check runs. Default true when the `largeFiles` block is present; set false to switch it off without deleting the block.",
+              "type": "boolean"
+            },
+            "threshold": {
+              "description": "Line count above which a file is flagged (strictly greater than). Default 500. Severity is low above 1x, medium above 2x, and high above 3x the threshold.",
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            "splitLayout": {
+              "description": "How the suggested fix lays out the split. `subfolder` (default): `src/foo.ts` becomes `src/foo/<concern>.ts` with `src/foo/index.ts` re-exporting the public API (JS/TS). `same-folder`: sibling modules like `src/foo-<concern>.ts`, with `src/foo.ts` kept as a thin facade.",
+              "type": "string",
+              "enum": ["subfolder", "same-folder"]
+            },
+            "ignore": {
+              "description": "Extra glob patterns excluded from the check, added on top of the built-in defaults (node_modules, vendor, dist, build, coverage, generated/minified files, lock files, snapshots, protobuf output, *.svg, *.csv, *.json, CHANGELOG.md). Minimatch syntax: `**` crosses directories, `*` stays within one segment, dotfiles are matched.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
     "prReview": {
       "description": "Per-repo control over when the automatic PR review runs.",
       "type": "object",
