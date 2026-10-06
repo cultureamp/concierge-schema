@@ -89,7 +89,7 @@
           "type": "boolean"
         },
         "autoApproveRiskCeiling": {
-          "description": "Maximum risk level that Concierge may auto-approve. A repo may lower its ceiling below the global default (high) but not raise it. Omit to use the global default. Overridden by teams.json's reviewGateAutoApproveRiskCeiling when a team or repo sets one.",
+          "description": "Highest repo risk Concierge may auto-approve in. A repo above it always needs a human. It never raises the combined-risk threshold. Omit for no ceiling. Overridden by teams.json's reviewGateAutoApproveRiskCeiling when a team or repo sets one.",
           "type": "string",
           "enum": ["low", "medium", "high"]
         },
