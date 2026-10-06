@@ -147,6 +147,27 @@
       },
       "additionalProperties": false
     },
+    "setup": {
+      "description": "Per-repo tuning of workspace setup (dependency installs) before the agent runs.",
+      "type": "object",
+      "properties": {
+        "ignoreDirs": {
+          "description": "Repo-relative directories, or glob patterns, that setup skips when it auto-detects lockfiles and runs dependency installs (npm/yarn/pnpm/bun, poetry, uv, pip, bundler, go, gradle) and `devbox install`. A literal path skips that directory and everything under it; a glob skips any directory whose path, or an ancestor's path, matches. Added on top of the built-in skips (node_modules, vendor, dist, build, .venv, fixtures, __fixtures__, examples, local-dev, .git, .devbox, .nix). Minimatch syntax: `**` crosses directories, `*` stays within one segment, dotfiles are matched. Brace patterns (`{a,b}`) are not supported. Leading `./` and trailing `/` are ignored; absolute paths, `..` segments, brace patterns and the repo root are rejected with a warning. A single string is treated as a one-item list. Devbox manifests under these directories are also not activated for the agent's Bash tool or the `devbox run verify` commit hook. Only affects installs and devbox activation; the agent can still read and edit these files.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
     "skills": {
       "description": "Externally-sourced Claude skills staged on every workflow run of this repo. Each entry is a cultureamp repo (owner/repo); omit `path` for whole-repo discovery (every SKILL.md dir), or set `path` to a single skill's SKILL.md directory. `ref` is reserved — v1 always uses the default branch and records its resolved SHA.",
       "type": "array",
