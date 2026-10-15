@@ -26,6 +26,18 @@
         "additionalProperties": false
       }
     },
+    "appsec": {
+      "description": "Per-repo tuning of the AppSec scan in the PR review.",
+      "type": "object",
+      "properties": {
+        "minSeverity": {
+          "description": "Lowest priority the PR review's Security section shows. Default `high`. Priority starts at the scanner's severity and moves one step for context: raised for a critical or high `reviewGate.pathRisk` path, a security code path (auth, permissions, secrets) or a service that public-api-gateway calls; lowered for a low `pathRisk` path, a test or docs file, or a package the code does not import. Secrets, malicious packages and CISA KEV advisories are never lowered, and malicious and KEV advisories always show. The section counts the findings it hides. Read from the default branch.",
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"]
+        }
+      },
+      "additionalProperties": false
+    },
     "archReview": {
       "description": "Per-repo tuning of the scheduled architecture review.",
       "type": "object",
