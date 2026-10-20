@@ -97,20 +97,20 @@
       "type": "object",
       "properties": {
         "autoApprove": {
-          "description": "Opt in to Concierge auto-approve. When true and the repo has the review gate enabled, Concierge submits an informational APPROVE review on eligible PRs. Overridden by teams.json's reviewGateAutoApprove when a team or repo sets one.",
+          "description": "Opt in to Concierge auto-approve. When true and the repo has the review gate enabled, Concierge submits an informational APPROVE review on eligible PRs. false always turns it off. true is ignored when teams.json sets reviewGateAutoApprove: false.",
           "type": "boolean"
         },
         "autoApproveRiskCeiling": {
-          "description": "Highest repo risk Concierge may auto-approve in. A repo above it always needs a human. It never raises the combined-risk threshold. Omit for no ceiling. Overridden by teams.json's reviewGateAutoApproveRiskCeiling when a team or repo sets one.",
+          "description": "Highest repo risk Concierge may auto-approve in. A repo above it always needs a human. It never raises the combined-risk threshold. Omit for no ceiling. When teams.json sets reviewGateAutoApproveRiskCeiling, the lower of the two applies.",
           "type": "string",
           "enum": ["low", "medium", "high"]
         },
         "excludeCommitAuthors": {
-          "description": "Whether an approver who authored a commit on the PR head is excluded from counting as an independent approver. Default true. Set false to disable this exclusion for the repo. Overridden by teams.json's reviewGateExcludeCommitAuthors when a team or repo sets one.",
+          "description": "Org mandate: an approver who authored a commit on the PR head does not count as an independent approver. Default true. false is ignored; only teams.json's reviewGateExcludeCommitAuthors can exempt a repo. true keeps the rule on even when teams.json exempts the repo.",
           "type": "boolean"
         },
         "requireIndependentReviewer": {
-          "description": "Whether a Concierge-requested PR requires approval from someone other than the requestor (separation of duties). Default true. Set false to let the requestor's own approval satisfy the gate. Overridden by teams.json's reviewGateRequireIndependentReviewer when a team or repo sets one.",
+          "description": "Org mandate: a Concierge-requested PR needs approval from someone other than the requestor (separation of duties). Default true. false is ignored; only teams.json's reviewGateRequireIndependentReviewer can exempt a repo. true keeps the rule on even when teams.json exempts the repo.",
           "type": "boolean"
         },
         "pathRisk": {
