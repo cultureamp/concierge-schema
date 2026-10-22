@@ -74,6 +74,41 @@
       },
       "additionalProperties": false
     },
+    "mutationTesting": {
+      "description": "Opt in to the scheduled mutation-triage workflow. Phase 1 triages surviving mutants on recently changed lines; phase 2 rewrites weak or slow test files behind a no-lost-kills gate. Without this block, every directory with a stryker.config.mjs is a stryker workspace.",
+      "type": "object",
+      "properties": {
+        "workspaces": {
+          "description": "Workspaces the scheduled mutation-triage workflow mutates. Default: every directory with a stryker.config.mjs, as `stryker`.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "Workspace directory, relative to the repo root (`.` for the root). For `gremlins`, the directory with go.mod."
+              },
+              "adapter": {
+                "type": "string",
+                "enum": ["stryker", "gremlins"],
+                "description": "Mutation tool. `stryker`: StrykerJS for JS/TS (bun, vitest or jest is detected; no stryker.config.mjs needed). `gremlins`: Go; the repo's devbox.json must provide `go` and `gremlins`."
+              },
+              "testCommand": {
+                "description": "`stryker` only: test command with a `{files}` placeholder for the test files, when the runner is not bun, vitest or jest. Without junit output, the timing gate uses wall time only.",
+                "type": "string"
+              }
+            },
+            "required": ["path", "adapter"],
+            "additionalProperties": false
+          }
+        },
+        "separatePrs": {
+          "description": "When true, open one PR per workspace, with its survivor tests (phase 1) and its rewritten test files (phase 2). Default false: one PR for the whole repo. A branch that conflicts with another is left out of its PR.",
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
     "prReview": {
       "description": "Per-repo control over when the automatic PR review runs.",
       "type": "object",
