@@ -75,11 +75,11 @@
       "additionalProperties": false
     },
     "mutationTesting": {
-      "description": "Opt in to the scheduled mutation-triage workflow. Phase 1 triages surviving mutants on recently changed lines; phase 2 rewrites weak or slow test files behind a no-lost-kills gate. Without workspaces, every directory with a stryker.config.mjs is a stryker workspace; else each TypeScript package (package.json plus tsconfig.json or .ts sources) is a stryker workspace with a generated config.",
+      "description": "Opt in to the scheduled mutation-triage workflow. Phase 1 triages surviving mutants on recently changed lines; phase 2 rewrites weak or slow test files behind a no-lost-kills gate. Without workspaces, each adapter finds its own: TypeScript packages and stryker.config.mjs directories for stryker, go.mod directories for gremlins (when devbox.json lists go and gremlins).",
       "type": "object",
       "properties": {
         "workspaces": {
-          "description": "Workspaces the scheduled mutation-triage workflow mutates. Default: every directory with a stryker.config.mjs, as `stryker`; else each TypeScript package (package.json plus tsconfig.json or .ts sources), as `stryker` with a generated config.",
+          "description": "Workspaces the scheduled mutation-triage workflow mutates. Default: what each adapter finds. `stryker`: each TypeScript package (package.json plus tsconfig.json or .ts sources) and each directory with a stryker.config.mjs. `gremlins`: each directory with a go.mod, when devbox.json lists go and gremlins. A directory both find is `stryker`.",
           "type": "array",
           "items": {
             "type": "object",
