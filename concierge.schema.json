@@ -145,7 +145,7 @@
           "type": "boolean"
         },
         "requireIndependentReviewer": {
-          "description": "Org mandate: a Concierge-requested PR needs approval from someone other than the requestor (separation of duties). Default true. false is ignored; only teams.json's reviewGateRequireIndependentReviewer can exempt a repo. true keeps the rule on even when teams.json exempts the repo.",
+          "description": "Org mandate: a Concierge-requested PR needs approval from someone other than the requestor (separation of duties). When the gate rates the PR low risk, the requestor's own approval counts, but a human approval is still required. Default true. false is ignored; only teams.json's reviewGateRequireIndependentReviewer can exempt a repo. true keeps the rule on even when teams.json exempts the repo.",
           "type": "boolean"
         },
         "pathRisk": {
