@@ -136,7 +136,7 @@
           "type": "boolean"
         },
         "autoApproveRiskCeiling": {
-          "description": "Highest repo risk Concierge may auto-approve in. A repo above it always needs a human. It never raises the combined-risk threshold. Omit for no ceiling. When teams.json sets reviewGateAutoApproveRiskCeiling, the lower of the two applies.",
+          "description": "Highest repo risk Concierge may auto-approve in, and where the requestor may self-approve. A repo above it always needs a human. It never raises the combined-risk threshold. The org default is low. When teams.json sets reviewGateAutoApproveRiskCeiling, the lower of the two applies.",
           "type": "string",
           "enum": ["low", "medium", "high"]
         },
@@ -145,7 +145,7 @@
           "type": "boolean"
         },
         "requireIndependentReviewer": {
-          "description": "Org mandate: a Concierge-requested PR needs approval from someone other than the requestor (separation of duties). When the gate rates the PR low risk, the requestor's own approval counts, but a human approval is still required. Default true. false is ignored; only teams.json's reviewGateRequireIndependentReviewer can exempt a repo. true keeps the rule on even when teams.json exempts the repo.",
+          "description": "Org mandate: a Concierge-requested PR needs approval from someone other than the requestor (separation of duties). The requestor may approve their own PR when it is low risk: no hard veto, repo risk at or under the ceiling, and the band at or under the threshold. Default true. false is ignored; only teams.json's reviewGateRequireIndependentReviewer can exempt a repo. true keeps the rule on even when teams.json exempts the repo.",
           "type": "boolean"
         },
         "pathRisk": {
