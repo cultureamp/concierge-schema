@@ -141,7 +141,7 @@
           "enum": ["low", "medium", "high"]
         },
         "excludeCommitAuthors": {
-          "description": "Org mandate: on a bot-authored PR (Renovate, Concierge), an approver who authored a commit on the PR head does not count as an independent approver. Human-authored PRs ignore it: only the PR author (and the requestor) is excluded there. Default true. false is ignored; only teams.json's reviewGateExcludeCommitAuthors can exempt a repo. true keeps the rule on for bot-authored PRs even when teams.json exempts the repo.",
+          "description": "Org mandate: on a bot-authored PR (Renovate, Concierge), an approver who authored a commit on the PR head does not count as an independent approver, unless the PR is low risk with no critical path. The review-gate-bot-prs scope has no risk assessment, so commit authors never count there. Human-authored PRs ignore it: only the PR author (and the requestor) is excluded there. Default true. false is ignored; only teams.json's reviewGateExcludeCommitAuthors can exempt a repo. true keeps the rule on for bot-authored PRs even when teams.json exempts the repo.",
           "type": "boolean"
         },
         "requireIndependentReviewer": {
