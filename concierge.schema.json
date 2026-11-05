@@ -74,6 +74,56 @@
       },
       "additionalProperties": false
     },
+    "dispatch": {
+      "description": "Who else may dispatch Concierge workflows to this repository. Without it, a GitHub Actions run dispatches only to its own repository.",
+      "type": "object",
+      "properties": {
+        "callers": {
+          "maxItems": 50,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "repository": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+$",
+                "description": "The calling repository, `owner/name`. Compared ignoring case."
+              },
+              "workflows": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "arch-review",
+                    "autofix-pr",
+                    "automerge-renovate-prs",
+                    "background-agent",
+                    "backlog-triage",
+                    "baseline-review",
+                    "camp-digest",
+                    "dry-run",
+                    "install-check",
+                    "mutation-triage",
+                    "patch-cves",
+                    "pr-review",
+                    "renovate-rebase",
+                    "repo-digest",
+                    "root-cause-analysis"
+                  ]
+                },
+                "description": "The workflows that repository may dispatch here, e.g. `background-agent`."
+              }
+            },
+            "required": ["repository", "workflows"],
+            "additionalProperties": false
+          },
+          "description": "Other repositories whose default-branch GitHub Actions workflows may dispatch Concierge workflows to this repository through the front door's REST API. The person the run acts for still needs write access here. Read from this repository's default branch on every dispatch."
+        }
+      },
+      "required": ["callers"],
+      "additionalProperties": false
+    },
     "mutationTesting": {
       "description": "Opt in to the scheduled mutation-triage workflow. Phase 1 triages surviving mutants on recently changed lines; phase 2 rewrites weak or slow test files behind a no-lost-kills gate. Without workspaces, each adapter finds its own: TypeScript packages and stryker.config.mjs directories for stryker, go.mod directories for gremlins (when devbox.json lists go and gremlins).",
       "type": "object",
