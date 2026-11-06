@@ -240,6 +240,32 @@
             }
           },
           "additionalProperties": false
+        },
+        "devPaths": {
+          "description": "Glob patterns for files that run only in a dev environment. The review gate scores them like tests: they set no production, infrastructure, dependency or deletion veto. Security paths and keywords and `pathRisk` critical or high still apply.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "devBranches": {
+          "description": "Branch names that deploy only to a dev environment, on top of dev, development and sandbox. The review gate scores a PR into one of them like a test change, unless the branch is the default branch. Security paths and keywords and `pathRisk` critical or high still apply.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        },
+        "devGroups": {
+          "description": "Bundler groups that never install in production, on top of development and test, for example staging or edge. The review gate scores a Gemfile change inside only these groups, and a Gemfile.lock change that only these gems reach, like a test change.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z_][a-z0-9_]*$"
+          }
         }
       },
       "additionalProperties": false
