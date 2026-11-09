@@ -186,7 +186,7 @@
           "type": "boolean"
         },
         "autoApproveRiskCeiling": {
-          "description": "Highest impact Concierge may auto-approve, and where the requestor may self-approve. A PR with impact above it always needs a human. It never raises the combined-risk threshold. The org default is medium. When teams.json sets reviewGateAutoApproveRiskCeiling, the lower of the two applies. high acts as medium: a PR in a high or critical repo always needs two humans.",
+          "description": "Highest impact Concierge may auto-approve, and where the requestor may self-approve. A PR with impact above it always needs a human. It never raises the combined-risk threshold. The org default is medium. When teams.json sets reviewGateAutoApproveRiskCeiling, the lower of the two applies. high acts as medium: a PR in a high or critical repo needs two humans unless every touched file is docs, tests, comment-only or pathRisk: low. Dev-only files such as CI workflows still block.",
           "type": "string",
           "enum": ["low", "medium", "high"]
         },
