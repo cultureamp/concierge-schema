@@ -270,6 +270,43 @@
       },
       "additionalProperties": false
     },
+    "secretScan": {
+      "description": "Per-repo tuning of the final-step secret scan.",
+      "type": "object",
+      "properties": {
+        "allow": {
+          "description": "Known-public findings the final-step TruffleHog pattern scan does not block on, e.g. generated client-side analytics keys. Read from the default branch, so a run cannot allow-list its own leak. Never suppresses exact matches of the run's own credentials or GitHub, AWS, Buildkite or Slack detectors. Only the agent's own commits and changes are scanned anyway.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Repo-relative file path or glob pattern (`**` crosses directories, `*` stays within one segment). A leading `./` is ignored; absolute paths, `..` segments, negated patterns and patterns that match nearly every path (such as `**`) are rejected with a warning."
+              },
+              "detectors": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "TruffleHog detector names to allow at `path`, e.g. `AmplitudeApiKey`, matched case-insensitively. A `trufflehog:` prefix is optional. GitHub, AWS, Buildkite and Slack detectors are dropped with a warning."
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Why these findings are known to be public or safe to commit."
+              }
+            },
+            "required": ["path", "detectors", "reason"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
     "setup": {
       "description": "Per-repo tuning of workspace setup (dependency installs) before the agent runs.",
       "type": "object",
